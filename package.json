@@ -1,0 +1,53 @@
+{
+	"name": "soundsyntax",
+	"displayName": "SoundSyntax",
+	"description": "SoundSyntax is a Visual Studio Code extension that plays audio cues when the cursor hovers over beginning of token in your code. Enhance your coding experience with auditory feedback, allowing you to easily identify and interact with different elements of your syntax.",
+	"version": "0.0.1",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ecebeci/SoundSyntax"
+	},
+	"engines": {
+		"vscode": "^1.94.0"
+	},
+	"categories": ["Other"],
+	"activationEvents": ["onStartupFinished"],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "soundsyntax.toggle",
+				"title": "SoundSyntax: Disable/Enable Extension"
+			}
+		],
+		"configuration": {
+			"title": "SoundSyntax",
+			"properties": {
+				"soundsyntax.enable": {
+					"type": "boolean",
+					"default": true,
+					"description": "Disable/Enable SoundSyntax"
+				}
+			}
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"lint": "eslint src",
+		"test": "vscode-test"
+	},
+	"devDependencies": {
+		"@types/mocha": "^10.0.8",
+		"@types/node": "20.x",
+		"@types/vscode": "^1.94.0",
+		"@typescript-eslint/eslint-plugin": "^8.7.0",
+		"@typescript-eslint/parser": "^8.7.0",
+		"@vscode/test-cli": "^0.0.10",
+		"@vscode/test-electron": "^2.4.1",
+		"eslint": "^9.11.1",
+		"typescript": "^5.6.2"
+	}
+}

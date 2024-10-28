@@ -14,3 +14,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 - Features
   - Added volume control for sound playback.
+
+## [0.1.1] - 28-10-2024
+
+- Bug Fixes
+  - Fixed dependency issues with the extension.

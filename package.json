@@ -3,6 +3,7 @@
   "displayName": "SoundSyntax",
   "description": "SoundSyntax is a Visual Studio Code extension that plays audio cues when the cursor hovers over beginning of token in your code. Enhance your coding experience with auditory feedback, allowing you to easily identify and interact with different elements of your syntax.",
   "version": "0.0.1",
+  "publisher": "EmreCebeci",
   "repository": {
     "type": "git",
     "url": "https://github.com/ecebeci/SoundSyntax"

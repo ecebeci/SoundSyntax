@@ -1,21 +1,26 @@
-// Sound Syntax - A Visual Studio Code extension that reads out the syntax of the code at the cursor start position.
-// Copyright (C) 2024
+/* 
+Sound Syntax - A Visual Studio Code extension that reads out the syntax of the code at the cursor start position.
+Copyright (C) 2024 - Emre Cebeci
 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
 
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>. 
+*/
 import * as vscode from "vscode";
+import { AudioPlayer } from "./audioplayer";
+import path from "path";
 
 export const tokenCache: { [uri: string]: vscode.SemanticTokens } = {};
+const audioPlayer = AudioPlayer.getInstance();
 
 export function activate(context: vscode.ExtensionContext) {
 	let isSoundSyntaxEnabled = vscode.workspace
@@ -62,6 +67,10 @@ export function activate(context: vscode.ExtensionContext) {
 			const tokenType = await getTokenTypeAtCursor(editor);
 			if (tokenType) {
 				vscode.window.showInformationMessage(tokenType);
+				const audioFilePath = path.join(context.extensionPath, 'sounds', 'example.mp3');
+				await audioPlayer.playSound(audioFilePath).catch((error) => {
+					vscode.window.showErrorMessage("Error playing sound:", error);
+				});
 			}
 		} catch (error) {
 			console.error("Error getting token type at cursor: ", error);

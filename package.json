@@ -10,8 +10,12 @@
 	"engines": {
 		"vscode": "^1.94.0"
 	},
-	"categories": ["Other"],
-	"activationEvents": ["onStartupFinished"],
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onStartupFinished"
+	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
@@ -42,12 +46,15 @@
 	"devDependencies": {
 		"@types/mocha": "^10.0.8",
 		"@types/node": "20.x",
+		"@types/play-sound": "^1.1.2",
 		"@types/vscode": "^1.94.0",
 		"@typescript-eslint/eslint-plugin": "^8.7.0",
 		"@typescript-eslint/parser": "^8.7.0",
 		"@vscode/test-cli": "^0.0.10",
 		"@vscode/test-electron": "^2.4.1",
+		"audio-decode": "^2.2.2",
 		"eslint": "^9.11.1",
+		"node-web-audio-api": "^0.21.3",
 		"typescript": "^5.6.2"
 	}
 }

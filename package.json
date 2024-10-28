@@ -1,7 +1,7 @@
 {
   "name": "soundsyntax",
-  "displayName": "SoundSyntax",
-  "description": "SoundSyntax is a Visual Studio Code extension that plays audio cues when the cursor hovers over beginning of token in your code. Enhance your coding experience with auditory feedback, allowing you to easily identify and interact with different elements of your syntax.",
+  "displayName": "Sound Syntax",
+  "description": "Sound Syntax is a Visual Studio Code extension that plays audio cues when the cursor hovers over beginning of token in your code. Enhance your coding experience with auditory feedback, allowing you to easily identify and interact with different elements of your syntax.",
   "version": "0.1.0",
   "publisher": "EmreCebeci",
   "repository": {
@@ -18,16 +18,16 @@
     "commands": [
       {
         "command": "soundSyntax.toggle",
-        "title": "SoundSyntax: Disable/Enable Extension"
+        "title": "Sound Syntax: Disable/Enable Extension"
       }
     ],
     "configuration": {
-      "title": "SoundSyntax",
+      "title": "Sound Syntax",
       "properties": {
         "soundSyntax.enable": {
           "type": "boolean",
           "default": true,
-          "description": "Disable/Enable SoundSyntax"
+          "description": "Disable/Enable Sound Syntax"
         },
         "soundSyntax.volume": {
           "type": "number",
@@ -177,12 +177,13 @@
     "@biomejs/biome": "^1.9.4",
     "@types/mocha": "^10.0.8",
     "@types/node": "20.x",
-    "@types/play-sound": "^1.1.2",
     "@types/vscode": "^1.94.0",
     "@vscode/test-cli": "^0.0.10",
     "@vscode/test-electron": "^2.4.1",
-    "audio-decode": "^2.2.2",
-    "node-web-audio-api": "^0.21.3",
     "typescript": "^5.6.2"
+  }, 
+  "dependencies": {
+    "audio-decode": "^2.2.2",
+    "node-web-audio-api": "^0.21.3"
   }
 }

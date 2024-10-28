@@ -1,6 +1,6 @@
-# SoundSyntax - Alpha
+# Sound Syntax - Alpha
 
-**SoundSyntax** is a Visual Studio Code extension designed to enhance your coding experience through auditory feedback. It plays customizable audio cue when your cursor hovers over the beginning of a token in your code, helping you easily identify different syntax elements. This feature is especially beneficial for **screen reader users**, as it provides audio cues for code elements.
+**Sound Syntax** is a Visual Studio Code extension designed to enhance your coding experience through auditory feedback. It plays customizable audio cue when your cursor hovers over the beginning of a token in your code, helping you easily identify different syntax elements. This feature is especially beneficial for **screen reader users**, as it provides audio cues for code elements.
 
 ![The image shows a C# code snippet that defines a class named "TreeNode" . The cursor is positioned at the beginning of the "class"; keyword, which is highlighted. At the bottom of the interface, an informational message labeled "keyword"; indicates the type of token currently being hovered over. This auditory feedback feature helps users easily identify syntax elements in their code.](https://i.imgur.com/YjnxG06.png)
 
@@ -20,4 +20,4 @@
 
 ## Contribution
 
-Contributions are welcome! If you'd like to help improve SoundSyntax, please fork the repository and submit a pull request.
+Contributions are welcome! If you'd like to help improve Sound Syntax, please fork the repository and submit a pull request.

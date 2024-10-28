@@ -17,55 +17,55 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 import * as vscode from "vscode";
 import { FeedbackHandler } from "./feedbackHandler";
-import { TokenTypeProvider } from "./tokentypeprovider";
+import { TokenTypeProvider } from "./tokenTypeProvider";
 
 export function activate(context: vscode.ExtensionContext) {
-	let isSoundSyntaxEnabled = vscode.workspace
-		.getConfiguration()
-		.get("soundSyntax.enable", false);
+  let isSoundSyntaxEnabled = vscode.workspace
+    .getConfiguration()
+    .get("soundSyntax.enable", false);
 
-	vscode.commands.registerCommand("soundsyntax.toggle", async () => {
-		isSoundSyntaxEnabled = !isSoundSyntaxEnabled;
-		const config = vscode.workspace.getConfiguration();
-		await config.update(
-			"soundSyntax.enable",
-			isSoundSyntaxEnabled,
-			vscode.ConfigurationTarget.Global,
-		);
-		
-		vscode.window.showInformationMessage(
-			`SoundSyntax ${isSoundSyntaxEnabled ? "enabled" : "disabled"}!`,
-		);
-	});
+  vscode.window.onDidChangeTextEditorSelection(async (event) => {
+    if (!isSoundSyntaxEnabled) {
+      return;
+    }
 
-	vscode.workspace.onDidChangeConfiguration((event) => {
-		if (event.affectsConfiguration("soundSyntax.enable")) {
-			const updatedConfig = vscode.workspace.getConfiguration();
-			isSoundSyntaxEnabled = updatedConfig.get("soundSyntax.enable", false);
-		}
-	});
+    const editor = event.textEditor;
+    const tokenType = await TokenTypeProvider.getTokenTypeAtCursor(editor);
+    if (tokenType) {
+      FeedbackHandler.handleTokenType(tokenType);
+    }
+  });
 
-	vscode.workspace.onDidChangeTextDocument((event) => {
-		const documentUri = event.document.uri.toString();
-		TokenTypeProvider.clearTokenCache(documentUri);
-	});
+  vscode.commands.registerCommand("soundSyntax.toggle", async () => {
+    isSoundSyntaxEnabled = !isSoundSyntaxEnabled;
+    const config = vscode.workspace.getConfiguration();
+    await config.update(
+      "soundSyntax.enable",
+      isSoundSyntaxEnabled,
+      vscode.ConfigurationTarget.Global,
+    );
 
-	vscode.workspace.onDidCloseTextDocument((document) => {
-		const documentUri = document.uri.toString();
-		TokenTypeProvider.clearTokenCache(documentUri);
-	});
+    vscode.window.showInformationMessage(
+      `SoundSyntax ${isSoundSyntaxEnabled ? "enabled" : "disabled"}!`,
+    );
+  });
 
-	vscode.window.onDidChangeTextEditorSelection(async (event) => {
-		if (!isSoundSyntaxEnabled) {
-			return;
-		}
+  vscode.workspace.onDidChangeConfiguration((event) => {
+    if (event.affectsConfiguration("soundSyntax.enable")) {
+      const updatedConfig = vscode.workspace.getConfiguration();
+      isSoundSyntaxEnabled = updatedConfig.get("soundSyntax.enable", false);
+    }
+  });
 
-		const editor = event.textEditor;
-		const tokenType = await TokenTypeProvider.getTokenTypeAtCursor(editor);
-		if(tokenType){
-			FeedbackHandler.handleTokenType(tokenType);
-		}
-	});
+  vscode.workspace.onDidChangeTextDocument((event) => {
+    const documentUri = event.document.uri.toString();
+    TokenTypeProvider.clearTokenCache(documentUri);
+  });
+
+  vscode.workspace.onDidCloseTextDocument((document) => {
+    const documentUri = document.uri.toString();
+    TokenTypeProvider.clearTokenCache(documentUri);
+  });
 }
 
 export function deactivate() {}

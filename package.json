@@ -1,193 +1,184 @@
 {
-	"name": "soundsyntax",
-	"displayName": "SoundSyntax",
-	"description": "SoundSyntax is a Visual Studio Code extension that plays audio cues when the cursor hovers over beginning of token in your code. Enhance your coding experience with auditory feedback, allowing you to easily identify and interact with different elements of your syntax.",
-	"version": "0.0.1",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/ecebeci/SoundSyntax"
-	},
-	"engines": {
-		"vscode": "^1.94.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-		"onStartupFinished"
-	],
-	"main": "./out/extension.js",
-	"contributes": {
-		"commands": [
-			{
-				"command": "soundSyntax.toggle",
-				"title": "SoundSyntax: Disable/Enable Extension"
-			}
-		],
-		"configuration": {
-			"title": "SoundSyntax",
-			"properties": {
-				"soundSyntax.enable": {
-					"type": "boolean",
-					"default": true,
-					"description": "Disable/Enable SoundSyntax"
-				},
-				"soundSyntax.volume": {
-					"type": "number",
-					"default": 100,
-					"description": "Volume of the sound. Value should be between 0 and 100."
-				},
-				"soundSyntax.tokens": {
-					"type": "array",
-					"description": "List of tokens with settings for sound, warnings, and sound path.",
-					"items": {
-						"type": "object",
-						"properties": {
-							"tokenLabel": {
-								"type": "string",
-								"description": "Label or name of the token."
-							},
-							"enableSound": {
-								"type": "boolean",
-								"description": "Enable or disable sound for this token."
-							},
-							"enableInformation": {
-								"type": "boolean",
-								"description": "Show an information message for this token."
-							},
-							"audioFilePath": {
-								"type": "string",
-								"description": "File path to the sound for this token.",
-								"default": ""
-							},
-							"overrideInformationText": {
-								"type": "string",
-								"description": "Override the information message for this token.",
-								"default": ""
-							}
-						},
-						"required": [
-							"tokenLabel",
-							"enableSound",
-							"enableInformation"
-						]
-					},
-					"default": [
-						{
-							"tokenLabel": "function",
-							"enableSound": true,
-							"enableInformation": true
-						},
-						{
-							"tokenLabel": "variable",
-							"enableSound": true,
-							"enableInformation": true
-						},
-						{
-							"tokenLabel": "method",
-							"enableSound": true,
-							"enableInformation": true
-						},
-						{
-							"tokenLabel": "parameter",
-							"enableSound": true,
-							"enableInformation": true
-						},
-						{
-							"tokenLabel": "interface",
-							"enableSound": true,
-							"enableInformation": true
-						},
-						{
-							"tokenLabel": "type",
-							"enableSound": true,
-							"enableInformation": true
-						},
-						{
-							"tokenLabel": "enum",
-							"enableSound": true,
-							"enableInformation": true
-						},
-						{
-							"tokenLabel": "enumMember",
-							"enableSound": true,
-							"enableInformation": true
-						},
-						{
-							"tokenLabel": "property",
-							"enableSound": true,
-							"enableInformation": true
-						},
-						{
-							"tokenLabel": "keyword",
-							"enableSound": true,
-							"enableInformation": true
-						},
-						{
-							"tokenLabel": "string",
-							"enableSound": true,
-							"enableInformation": true
-						},
-						{
-							"tokenLabel": "number",
-							"enableSound": true,
-							"enableInformation": true
-						},
-						{
-							"tokenLabel": "boolean",
-							"enableSound": true,
-							"enableInformation": true
-						},
-						{
-							"tokenLabel": "comment",
-							"enableSound": true,
-							"enableInformation": true
-						},
-						{
-							"tokenLabel": "punctuation",
-							"enableSound": true,
-							"enableInformation": true
-						},
-						{
-							"tokenLabel": "operator",
-							"enableSound": true,
-							"enableInformation": true
-						},
-						{
-							"tokenLabel": "field",
-							"enableSound": true,
-							"enableInformation": true
-						},
-						{
-							"tokenLabel": "class",
-							"enableSound": false,
-							"enableInformation": true
-						}
-					]
-				}
-			}
-		}
-	},
-	"scripts": {
-		"vscode:prepublish": "npm run compile",
-		"compile": "tsc -p ./",
-		"watch": "tsc -watch -p ./",
-		"pretest": "npm run compile && npm run lint",
-		"lint": "eslint src",
-		"test": "vscode-test"
-	},
-	"devDependencies": {
-		"@types/mocha": "^10.0.8",
-		"@types/node": "20.x",
-		"@types/play-sound": "^1.1.2",
-		"@types/vscode": "^1.94.0",
-		"@typescript-eslint/eslint-plugin": "^8.7.0",
-		"@typescript-eslint/parser": "^8.7.0",
-		"@vscode/test-cli": "^0.0.10",
-		"@vscode/test-electron": "^2.4.1",
-		"audio-decode": "^2.2.2",
-		"eslint": "^9.11.1",
-		"node-web-audio-api": "^0.21.3",
-		"typescript": "^5.6.2"
-	}
+  "name": "soundsyntax",
+  "displayName": "SoundSyntax",
+  "description": "SoundSyntax is a Visual Studio Code extension that plays audio cues when the cursor hovers over beginning of token in your code. Enhance your coding experience with auditory feedback, allowing you to easily identify and interact with different elements of your syntax.",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ecebeci/SoundSyntax"
+  },
+  "engines": {
+    "vscode": "^1.94.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": ["onStartupFinished"],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "soundSyntax.toggle",
+        "title": "SoundSyntax: Disable/Enable Extension"
+      }
+    ],
+    "configuration": {
+      "title": "SoundSyntax",
+      "properties": {
+        "soundSyntax.enable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Disable/Enable SoundSyntax"
+        },
+        "soundSyntax.volume": {
+          "type": "number",
+          "default": 100,
+          "description": "Volume of the sound. Value should be between 0 and 100."
+        },
+        "soundSyntax.tokens": {
+          "type": "array",
+          "description": "List of tokens with settings for sound, warnings, and sound path.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "tokenLabel": {
+                "type": "string",
+                "description": "Label or name of the token."
+              },
+              "enableSound": {
+                "type": "boolean",
+                "description": "Enable or disable sound for this token."
+              },
+              "enableInformation": {
+                "type": "boolean",
+                "description": "Show an information message for this token."
+              },
+              "audioFilePath": {
+                "type": "string",
+                "description": "File path to the sound for this token.",
+                "default": ""
+              },
+              "overrideInformationText": {
+                "type": "string",
+                "description": "Override the information message for this token.",
+                "default": ""
+              }
+            },
+            "required": ["tokenLabel", "enableSound", "enableInformation"]
+          },
+          "default": [
+            {
+              "tokenLabel": "function",
+              "enableSound": true,
+              "enableInformation": true
+            },
+            {
+              "tokenLabel": "variable",
+              "enableSound": true,
+              "enableInformation": true
+            },
+            {
+              "tokenLabel": "method",
+              "enableSound": true,
+              "enableInformation": true
+            },
+            {
+              "tokenLabel": "parameter",
+              "enableSound": true,
+              "enableInformation": true
+            },
+            {
+              "tokenLabel": "interface",
+              "enableSound": true,
+              "enableInformation": true
+            },
+            {
+              "tokenLabel": "type",
+              "enableSound": true,
+              "enableInformation": true
+            },
+            {
+              "tokenLabel": "enum",
+              "enableSound": true,
+              "enableInformation": true
+            },
+            {
+              "tokenLabel": "enumMember",
+              "enableSound": true,
+              "enableInformation": true
+            },
+            {
+              "tokenLabel": "property",
+              "enableSound": true,
+              "enableInformation": true
+            },
+            {
+              "tokenLabel": "keyword",
+              "enableSound": true,
+              "enableInformation": true
+            },
+            {
+              "tokenLabel": "string",
+              "enableSound": true,
+              "enableInformation": true
+            },
+            {
+              "tokenLabel": "number",
+              "enableSound": true,
+              "enableInformation": true
+            },
+            {
+              "tokenLabel": "boolean",
+              "enableSound": true,
+              "enableInformation": true
+            },
+            {
+              "tokenLabel": "comment",
+              "enableSound": true,
+              "enableInformation": true
+            },
+            {
+              "tokenLabel": "punctuation",
+              "enableSound": true,
+              "enableInformation": true
+            },
+            {
+              "tokenLabel": "operator",
+              "enableSound": true,
+              "enableInformation": true
+            },
+            {
+              "tokenLabel": "field",
+              "enableSound": true,
+              "enableInformation": true
+            },
+            {
+              "tokenLabel": "class",
+              "enableSound": false,
+              "enableInformation": true
+            }
+          ]
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "npx @biomejs/biome lint --write src",
+    "format": "npx @biomejs/biome format --write src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/mocha": "^10.0.8",
+    "@types/node": "20.x",
+    "@types/play-sound": "^1.1.2",
+    "@types/vscode": "^1.94.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
+    "audio-decode": "^2.2.2",
+    "node-web-audio-api": "^0.21.3",
+    "typescript": "^5.6.2"
+  }
 }

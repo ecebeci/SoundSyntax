@@ -4,7 +4,7 @@ export class TokenTypeProvider {
   private static tokenCache: { [uri: string]: vscode.SemanticTokens } = {};
 
   public static async getTokenTypeAtCursor(
-    editor: vscode.TextEditor
+    editor: vscode.TextEditor,
   ): Promise<string | undefined | null> {
     const position = editor.selection.active;
     const document = editor.document;
@@ -51,7 +51,7 @@ export class TokenTypeProvider {
 
   public static async getTokenTypeName(
     uri: vscode.Uri,
-    tokenType: number
+    tokenType: number,
   ): Promise<string | null> {
     const semanticTokensLegend = await vscode.commands.executeCommand<
       vscode.ProviderResult<vscode.SemanticTokensLegend>
@@ -61,7 +61,7 @@ export class TokenTypeProvider {
   }
 
   public static async getSemanticTokens(
-    document: vscode.TextDocument
+    document: vscode.TextDocument,
   ): Promise<vscode.SemanticTokens | undefined> {
     let semanticTokens: vscode.SemanticTokens | null | undefined = null;
     try {
@@ -71,7 +71,7 @@ export class TokenTypeProvider {
       >("vscode.provideDocumentSemanticTokens", document.uri, cancelToken);
     } catch (error: unknown) {
       vscode.window.showWarningMessage(
-        `Error getting document semantic tokens. ${error}`
+        `Error getting document semantic tokens. ${error}`,
       );
       return undefined;
     }
@@ -83,8 +83,8 @@ export class TokenTypeProvider {
   }
 
   public static getCachedTokens(
-    uri: string
-  ) : vscode.SemanticTokens | undefined {
+    uri: string,
+  ): vscode.SemanticTokens | undefined {
     return this.tokenCache[uri];
   }
 

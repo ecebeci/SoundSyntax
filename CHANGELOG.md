@@ -9,3 +9,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Features
   - Added configuration settings for token types, including sound file paths and notification preferences.
   - Implemented sound playback for token types based on user configuration.
+
+## [0.1.0] - 28-10-2024
+
+- Features
+  - Added volume control for sound playback.

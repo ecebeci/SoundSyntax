@@ -168,7 +168,8 @@
     "pretest": "npm run compile && npm run lint",
     "lint": "npx @biomejs/biome lint --write src",
     "format": "npx @biomejs/biome format --write src",
-    "test": "vscode-test"
+    "test": "vscode-test",
+    "deploy": "npx vsce publish"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",

@@ -9,7 +9,8 @@
     "rules": {
       "recommended": true,
       "style": { "useBlockStatements": "warn" },
-      "suspicious": { "noDoubleEquals": "warn" }
+      "suspicious": { "noDoubleEquals": "warn" },
+      "complexity": { "noStaticOnlyClass": "off" }
     }
   },
   "javascript": { "formatter": { "quoteStyle": "double" }, "globals": [] },

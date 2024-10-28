@@ -1,21 +1,21 @@
 import * as vscode from "vscode";
-import path from "path";
-import fs from "fs";
-import { ITokenConfiguration } from "./interfaces/ITokenConfiguration";
+import path from "node:path";
+import fs from "node:fs";
+import type { ITokenConfiguration } from "./interfaces/ITokenConfiguration";
 import { AudioPlayer } from "./audioPlayer";
 
 export class FeedbackHandler {
   private static audioPlayer = AudioPlayer.getInstance();
   private static defaultSoundPath = path.resolve(
     __dirname,
-    `../sounds/default.mp3`,
+    "../sounds/default.mp3",
   );
 
   public static async handleTokenType(tokenType: string) {
-    const tokenConfig = this.getTokenConfiguration(tokenType);
+    const tokenConfig = FeedbackHandler.getTokenConfiguration(tokenType);
 
     if (!tokenConfig) {
-      await this.playDefaultSound();
+      await FeedbackHandler.playDefaultSound();
       return;
     }
 
@@ -25,9 +25,12 @@ export class FeedbackHandler {
     }
 
     if (tokenConfig.enableSound) {
-      const soundPath = this.resolveSoundPath(tokenConfig, tokenType);
+      const soundPath = FeedbackHandler.resolveSoundPath(
+        tokenConfig,
+        tokenType,
+      );
       if (soundPath) {
-        await this.playSound(soundPath);
+        await FeedbackHandler.playSound(soundPath);
       }
     }
   }
@@ -38,6 +41,11 @@ export class FeedbackHandler {
     const config = vscode.workspace.getConfiguration("soundSyntax");
     const tokens = config.get<ITokenConfiguration[]>("tokens");
     return tokens?.find((token) => token.tokenLabel === tokenType);
+  }
+
+  private static getVolume(): number {
+    const config = vscode.workspace.getConfiguration("soundSyntax");
+    return config.get<number>("volume") || 100;
   }
 
   private static resolveSoundPath(
@@ -56,12 +64,12 @@ export class FeedbackHandler {
       return specificSoundPath;
     }
 
-    return this.defaultSoundPath;
+    return FeedbackHandler.defaultSoundPath;
   }
 
   private static async playDefaultSound() {
-    await this.audioPlayer
-      .playSound(this.defaultSoundPath)
+    await FeedbackHandler.audioPlayer
+      .playSound(FeedbackHandler.defaultSoundPath, FeedbackHandler.getVolume())
       .catch((error: Error) => {
         vscode.window.showWarningMessage(
           `Error playing default sound: ${error.message}`,
@@ -70,8 +78,12 @@ export class FeedbackHandler {
   }
 
   private static async playSound(soundPath: string) {
-    await this.audioPlayer.playSound(soundPath).catch((error: Error) => {
-      vscode.window.showWarningMessage(`Error playing sound: ${error.message}`);
-    });
+    await FeedbackHandler.audioPlayer
+      .playSound(soundPath, FeedbackHandler.getVolume())
+      .catch((error: Error) => {
+        vscode.window.showWarningMessage(
+          `Error playing sound: ${error.message}`,
+        );
+      });
   }
 }

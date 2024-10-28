@@ -13,13 +13,13 @@ export class TokenTypeProvider {
       return undefined;
     }
     const cacheKey = document.uri.toString();
-    let semanticTokens = this.getCachedTokens(cacheKey);
+    let semanticTokens = TokenTypeProvider.getCachedTokens(cacheKey);
     if (!semanticTokens) {
-      semanticTokens = await this.getSemanticTokens(document);
+      semanticTokens = await TokenTypeProvider.getSemanticTokens(document);
       if (!semanticTokens) {
         return undefined;
       }
-      this.tokenCache[cacheKey] = semanticTokens;
+      TokenTypeProvider.tokenCache[cacheKey] = semanticTokens;
     }
 
     const tokens = semanticTokens.data;
@@ -42,7 +42,7 @@ export class TokenTypeProvider {
         position.line === currentLine &&
         position.character === currentStartCharacter
       ) {
-        return this.getTokenTypeName(document.uri, tokenType);
+        return TokenTypeProvider.getTokenTypeName(document.uri, tokenType);
       }
     }
 
@@ -85,10 +85,10 @@ export class TokenTypeProvider {
   public static getCachedTokens(
     uri: string,
   ): vscode.SemanticTokens | undefined {
-    return this.tokenCache[uri];
+    return TokenTypeProvider.tokenCache[uri];
   }
 
   public static clearTokenCache(uri: string) {
-    delete this.tokenCache[uri];
+    delete TokenTypeProvider.tokenCache[uri];
   }
 }

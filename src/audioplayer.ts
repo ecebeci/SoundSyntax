@@ -1,4 +1,4 @@
-import * as fs from "fs";
+import * as fs from "node:fs";
 import { AudioContext } from "node-web-audio-api";
 
 export class AudioPlayer {
@@ -16,7 +16,7 @@ export class AudioPlayer {
     return AudioPlayer.instance;
   }
 
-  public async playSound(filePath: string): Promise<void> {
+  public async playSound(filePath: string, volume: number): Promise<void> {
     if (!fs.existsSync(filePath)) {
       throw new Error(`Sound file not found: ${filePath}`);
     }
@@ -24,10 +24,13 @@ export class AudioPlayer {
     try {
       const audioBuffer = await this.loadAudioBuffer(filePath);
       const source = this.audioContext.createBufferSource();
+      const gainNode = this.audioContext.createGain();
+      gainNode.gain.value = volume ? volume / 100 : 1;
+      gainNode.connect(this.audioContext.destination);
+      source.connect(gainNode);
       source.buffer = audioBuffer;
-      source.connect(this.audioContext.destination);
       source.start(0); // Play the sound from the beginning
-    } catch (error: any) {
+    } catch (error: unknown) {
       throw new Error(`AudioPlayer: ${error}`);
     }
   }

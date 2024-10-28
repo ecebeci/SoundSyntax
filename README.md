@@ -16,7 +16,6 @@
 
 ## Missing Features
 
-- **Volume Control**: Allow users to adjust the volume of the sound notifications to suit their preferences.
 - **Current Element Keyboard Shortcut**: Implement a keyboard shortcut to quickly identify and interact with the current code element or token.
 
 ## Contribution

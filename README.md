@@ -5,13 +5,14 @@
 ## Features
 
 - **Auditory Feedback**: Hear different sounds for various syntax elements (e.g., functions, variables, classes) in your code.
-- **Customizable Sounds**: Choose from a variety of sounds for each syntax element to personalize your coding experience.
+- **Customizable Sounds**: Configure the sounds for each syntax element.
 
 ## Extension Settings
 
 - `soundsyntax.enable`: Disable/enable this extension.
+- `soundsyntax.tokenTypes`: Configure the sounds for each syntax element.
 
-## Known Issues
+## Missing Features
 
-- Audio cue hasn't been implemented yet.
-- Feedback may not be instant in very large files.
+- **Volume Control**: Allow users to adjust the volume of the sound notifications to suit their preferences.
+- **Current Element Keyboard Shortcut**: Implement a keyboard shortcut to quickly identify and interact with the current code element or token.

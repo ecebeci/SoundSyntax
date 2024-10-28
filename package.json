@@ -20,17 +20,150 @@
 	"contributes": {
 		"commands": [
 			{
-				"command": "soundsyntax.toggle",
+				"command": "soundSyntax.toggle",
 				"title": "SoundSyntax: Disable/Enable Extension"
 			}
 		],
 		"configuration": {
 			"title": "SoundSyntax",
 			"properties": {
-				"soundsyntax.enable": {
+				"soundSyntax.enable": {
 					"type": "boolean",
 					"default": true,
 					"description": "Disable/Enable SoundSyntax"
+				},
+				"soundSyntax.volume": {
+					"type": "number",
+					"default": 100,
+					"description": "Volume of the sound. Value should be between 0 and 100."
+				},
+				"soundSyntax.tokens": {
+					"type": "array",
+					"description": "List of tokens with settings for sound, warnings, and sound path.",
+					"items": {
+						"type": "object",
+						"properties": {
+							"tokenLabel": {
+								"type": "string",
+								"description": "Label or name of the token."
+							},
+							"enableSound": {
+								"type": "boolean",
+								"description": "Enable or disable sound for this token."
+							},
+							"enableInformation": {
+								"type": "boolean",
+								"description": "Show an information message for this token."
+							},
+							"audioFilePath": {
+								"type": "string",
+								"description": "File path to the sound for this token.",
+								"default": ""
+							},
+							"overrideInformationText": {
+								"type": "string",
+								"description": "Override the information message for this token.",
+								"default": ""
+							}
+						},
+						"required": [
+							"tokenLabel",
+							"enableSound",
+							"enableInformation"
+						]
+					},
+					"default": [
+						{
+							"tokenLabel": "function",
+							"enableSound": true,
+							"enableInformation": true
+						},
+						{
+							"tokenLabel": "variable",
+							"enableSound": true,
+							"enableInformation": true
+						},
+						{
+							"tokenLabel": "method",
+							"enableSound": true,
+							"enableInformation": true
+						},
+						{
+							"tokenLabel": "parameter",
+							"enableSound": true,
+							"enableInformation": true
+						},
+						{
+							"tokenLabel": "interface",
+							"enableSound": true,
+							"enableInformation": true
+						},
+						{
+							"tokenLabel": "type",
+							"enableSound": true,
+							"enableInformation": true
+						},
+						{
+							"tokenLabel": "enum",
+							"enableSound": true,
+							"enableInformation": true
+						},
+						{
+							"tokenLabel": "enumMember",
+							"enableSound": true,
+							"enableInformation": true
+						},
+						{
+							"tokenLabel": "property",
+							"enableSound": true,
+							"enableInformation": true
+						},
+						{
+							"tokenLabel": "keyword",
+							"enableSound": true,
+							"enableInformation": true
+						},
+						{
+							"tokenLabel": "string",
+							"enableSound": true,
+							"enableInformation": true
+						},
+						{
+							"tokenLabel": "number",
+							"enableSound": true,
+							"enableInformation": true
+						},
+						{
+							"tokenLabel": "boolean",
+							"enableSound": true,
+							"enableInformation": true
+						},
+						{
+							"tokenLabel": "comment",
+							"enableSound": true,
+							"enableInformation": true
+						},
+						{
+							"tokenLabel": "punctuation",
+							"enableSound": true,
+							"enableInformation": true
+						},
+						{
+							"tokenLabel": "operator",
+							"enableSound": true,
+							"enableInformation": true
+						},
+						{
+							"tokenLabel": "field",
+							"enableSound": true,
+							"enableInformation": true
+						},
+						{
+							"tokenLabel": "class",
+							"enableSound": false,
+							"enableInformation": true
+						}
+					]
 				}
 			}
 		}

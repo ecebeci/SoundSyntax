@@ -1,4 +1,3 @@
-import * as vscode from 'vscode';
 import * as fs from 'fs';
 import { AudioContext } from 'node-web-audio-api';
 
@@ -19,8 +18,7 @@ export class AudioPlayer {
 
     public async playSound(filePath: string): Promise<void> {
         if (!fs.existsSync(filePath)) {
-            vscode.window.showErrorMessage(`Sound file not found: ${filePath}`);
-            return;
+            throw new Error(`Sound file not found: ${filePath}`);
         }
 
         try {
@@ -30,7 +28,7 @@ export class AudioPlayer {
             source.connect(this.audioContext.destination);
             source.start(0);  // Play the sound from the beginning
         } catch (error : any) {
-            vscode.window.showErrorMessage(`Error playing sound: ${error.message}`);
+            throw new Error(`AudioPlayer: ${error}`);
         }
     }
 

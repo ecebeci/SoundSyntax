@@ -6,4 +6,6 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## Unreleased
 
-- Initial release
+- Features
+  - Added configuration settings for token types, including sound file paths and notification preferences.
+  - Implemented sound playback for token types based on user configuration.

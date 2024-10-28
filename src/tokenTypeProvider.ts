@@ -3,8 +3,21 @@ import * as vscode from "vscode";
 export class TokenTypeProvider {
   private static tokenCache: { [uri: string]: vscode.SemanticTokens } = {};
 
-  public static async getTokenTypeAtCursor(
+  public static getTokenTypeAtCursorStart(
     editor: vscode.TextEditor,
+  ): Promise<string | undefined | null> {
+    return TokenTypeProvider.getTokenTypeAtCursor(editor, true);
+  }
+
+  public static getTokenTypeAtCursorHover(
+    editor: vscode.TextEditor,
+  ): Promise<string | undefined | null> {
+    return TokenTypeProvider.getTokenTypeAtCursor(editor, false);
+  }
+
+  private static async getTokenTypeAtCursor(
+    editor: vscode.TextEditor,
+    atBegin: boolean,
   ): Promise<string | undefined | null> {
     const position = editor.selection.active;
     const document = editor.document;
@@ -28,7 +41,7 @@ export class TokenTypeProvider {
     for (let i = 0; i < tokens.length; i += 5) {
       const deltaLine = tokens[i];
       const deltaStartCharacter = tokens[i + 1];
-      // const length = tokens[i + 2];
+      const length = tokens[i + 2];
       const tokenType = tokens[i + 3];
       // const tokenModifiers = tokens[i + 4];
 
@@ -38,10 +51,14 @@ export class TokenTypeProvider {
           ? currentStartCharacter + deltaStartCharacter
           : deltaStartCharacter;
 
-      if (
-        position.line === currentLine &&
-        position.character === currentStartCharacter
-      ) {
+      const isAtCursor = atBegin
+        ? position.line === currentLine &&
+          position.character === currentStartCharacter
+        : position.line === currentLine &&
+          position.character >= currentStartCharacter &&
+          position.character <= currentStartCharacter + length - 1;
+
+      if (isAtCursor) {
         return TokenTypeProvider.getTokenTypeName(document.uri, tokenType);
       }
     }

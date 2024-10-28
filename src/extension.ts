@@ -30,17 +30,40 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
     const editor = event.textEditor;
-    const tokenType = await TokenTypeProvider.getTokenTypeAtCursor(editor);
+    const tokenType = await TokenTypeProvider.getTokenTypeAtCursorStart(editor);
     if (tokenType) {
       FeedbackHandler.handleTokenType(tokenType);
     }
   });
 
+  vscode.commands.registerCommand("soundSyntax.currentTokenType", async () => {
+    const editor = vscode.window.activeTextEditor;
+    if (!editor) {
+      return;
+    }
+
+    const tokenType = await TokenTypeProvider.getTokenTypeAtCursorHover(editor);
+    if (tokenType) {
+      FeedbackHandler.handleTokenType(tokenType);
+    }
+  });
+
+  vscode.commands.registerCommand("soundSyntax.setVolume", async () => {
+    const volume = await vscode.window.showInputBox({
+      placeHolder: "Enter volume level (0-100)",
+    });
+
+    if (volume) {
+      const config = vscode.workspace.getConfiguration("soundSyntax");
+      return config.update("volume", volume, vscode.ConfigurationTarget.Global);
+    }
+  });
+
   vscode.commands.registerCommand("soundSyntax.toggle", async () => {
     isSoundSyntaxEnabled = !isSoundSyntaxEnabled;
-    const config = vscode.workspace.getConfiguration();
+    const config = vscode.workspace.getConfiguration("soundSyntax");
     await config.update(
-      "soundSyntax.enable",
+      "enable",
       isSoundSyntaxEnabled,
       vscode.ConfigurationTarget.Global,
     );

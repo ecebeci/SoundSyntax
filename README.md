@@ -14,9 +14,11 @@
 - `soundsyntax.enable`: Disable/enable this extension.
 - `soundsyntax.tokenTypes`: Configure the sounds for each syntax element.
 
-## Missing Features
+## Extension Commands
 
-- **Current Element Keyboard Shortcut**: Implement a keyboard shortcut to quickly identify and interact with the current code element or token.
+- `soundsyntax.currentTokenType` : Get the type of the token currently being hovered over.
+- `soundsyntax.setVolume` : Set the volume of the audio cues.
+- `soundsyntax.toggle`: Disable/enable Sound Syntax.
 
 ## Contribution
 

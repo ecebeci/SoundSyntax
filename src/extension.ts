@@ -16,8 +16,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>. 
 */
 import * as vscode from "vscode";
-import { FeedbackHandler } from "./feedbackHandler";
-import { TokenTypeProvider } from "./tokenTypeProvider";
+import { handleTokenType } from "./feedbackHandler";
+import {
+  getTokenTypeAtCursorHover,
+  getTokenTypeAtCursorStart,
+  clearTokenCache,
+} from "./tokenTypeProvider";
 
 export function activate(context: vscode.ExtensionContext) {
   let isSoundSyntaxEnabled = vscode.workspace
@@ -30,9 +34,9 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
     const editor = event.textEditor;
-    const tokenType = await TokenTypeProvider.getTokenTypeAtCursorStart(editor);
+    const tokenType = await getTokenTypeAtCursorStart(editor);
     if (tokenType) {
-      FeedbackHandler.handleTokenType(tokenType);
+      handleTokenType(tokenType);
     }
   });
 
@@ -42,9 +46,9 @@ export function activate(context: vscode.ExtensionContext) {
       return;
     }
 
-    const tokenType = await TokenTypeProvider.getTokenTypeAtCursorHover(editor);
+    const tokenType = await getTokenTypeAtCursorHover(editor);
     if (tokenType) {
-      FeedbackHandler.handleTokenType(tokenType);
+      handleTokenType(tokenType);
     }
   });
 
@@ -82,12 +86,12 @@ export function activate(context: vscode.ExtensionContext) {
 
   vscode.workspace.onDidChangeTextDocument((event) => {
     const documentUri = event.document.uri.toString();
-    TokenTypeProvider.clearTokenCache(documentUri);
+    clearTokenCache(documentUri);
   });
 
   vscode.workspace.onDidCloseTextDocument((document) => {
     const documentUri = document.uri.toString();
-    TokenTypeProvider.clearTokenCache(documentUri);
+    clearTokenCache(documentUri);
   });
 }
 

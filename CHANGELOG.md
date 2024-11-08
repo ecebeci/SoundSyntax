@@ -19,3 +19,13 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 - Bug Fixes
   - Fixed dependency issues with the extension.
+
+## [0.2.0] - 08-11-2024
+
+- Bug Fixes
+
+  - Warning notifications are disabled by default.
+
+- Features
+  - Added get the type of the token currently being hovered over with the menu
+  - Added token settings

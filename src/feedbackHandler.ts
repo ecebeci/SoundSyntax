@@ -8,6 +8,7 @@ const defaultSoundPath = path.resolve(__dirname, "../sounds/default.mp3");
 
 export async function handleTokenType(tokenType: string) {
   const tokenConfig = getTokenConfiguration(tokenType);
+  const notificationMessagesAllowed = isNotificationMessagesAllowed();
 
   if (!tokenConfig) {
     await playSound(defaultSoundPath).catch((error: Error) => {
@@ -18,7 +19,7 @@ export async function handleTokenType(tokenType: string) {
     return;
   }
 
-  if (tokenConfig.enableInformation) {
+  if (notificationMessagesAllowed && tokenConfig.enableInformation) {
     const message = tokenConfig.overrideInformationText || tokenType;
     vscode.window.showInformationMessage(message);
   }
@@ -41,6 +42,11 @@ function getTokenConfiguration(
   const config = vscode.workspace.getConfiguration("soundSyntax");
   const tokens = config.get<ITokenConfiguration[]>("tokens");
   return tokens?.find((token) => token.tokenLabel === tokenType);
+}
+
+function isNotificationMessagesAllowed(): boolean {
+  const config = vscode.workspace.getConfiguration("soundSyntax");
+  return config.get<boolean>("notificationMessage", false);
 }
 
 function resolveSoundPath(

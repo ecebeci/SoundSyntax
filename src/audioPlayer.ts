@@ -18,7 +18,7 @@ export async function playSound(filePath: string): Promise<void> {
     gainNode.connect(audioContext.destination);
     source.connect(gainNode);
     source.buffer = audioBuffer;
-    source.start(0); // Play the sound from the beginning
+    source.start(0);
   } catch (error: unknown) {
     throw new Error(`AudioPlayer: ${error}`);
   }

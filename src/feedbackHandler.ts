@@ -4,7 +4,7 @@ import fs from "node:fs";
 import type { ITokenConfiguration } from "./interfaces/ITokenConfiguration";
 import { playSound } from "./audioPlayer";
 
-const defaultSoundPath = path.resolve(__dirname, "../sounds/default.mp3");
+const defaultSoundPath = path.resolve(__dirname, "../sounds/default.wav");
 
 export async function handleTokenType(tokenType: string) {
   const tokenConfig = getTokenConfiguration(tokenType);
@@ -59,7 +59,7 @@ function resolveSoundPath(
 
   const specificSoundPath = path.resolve(
     __dirname,
-    `../sounds/${tokenType}.mp3`,
+    `../sounds/${tokenType}.wav`,
   );
   if (fs.existsSync(specificSoundPath)) {
     return specificSoundPath;
